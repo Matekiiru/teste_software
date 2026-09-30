@@ -1,0 +1,33 @@
+name: Testes Cypress
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+
+jobs:
+  cypress:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Iniciar aplicação
+        run: npm start &
+
+      - name: Executar testes Cypress
+        uses: cypress-io/github-action@v7
+        with:
+          wait-on: "http://localhost:3000"
+          browser: chrome
