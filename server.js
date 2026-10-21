@@ -1,6 +1,7 @@
 const http = require("http");
 const fs = require("fs");
 const path = require("path");
+const { validarLogin } = require("./auth");
 
 const PORT = 3000;
 const index = fs.readFileSync(path.join(__dirname, "index.html"));
@@ -22,19 +23,17 @@ const server = http.createServer((req, res) => {
       let data = {};
       try {
         data = JSON.parse(body);
-      } catch {}
+      } catch {
+        // Um corpo inválido será tratado como credenciais inválidas.
+      }
 
-      const ok =
-        data.email === "teste@email.com" &&
-        data.senha === "123456";
-
-      res.writeHead(ok ? 200 : 401, {
+      const resultado = validarLogin(data);
+      res.writeHead(resultado.status, {
         "Content-Type": "application/json"
       });
-
       res.end(JSON.stringify({
-        sucesso: ok,
-        mensagem: ok ? "Login realizado com sucesso" : "E-mail ou senha inválidos"
+        sucesso: resultado.sucesso,
+        mensagem: resultado.mensagem
       }));
     });
 

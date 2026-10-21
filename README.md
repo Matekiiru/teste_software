@@ -56,3 +56,37 @@ cypress-simples/
 ├── index.html
 ├── package.json
 └── server.js
+
+## 5. Testes unitários
+
+A regra de autenticação foi extraída para `auth.js`, permitindo testá-la isoladamente, sem iniciar o servidor ou abrir o navegador. Os testes usam o test runner nativo do Node.js, então não é necessário instalar outra dependência.
+
+Execute:
+
+```bash
+npm run test:unit
+```
+
+## 6. Executar os testes E2E
+
+Em um terminal, inicie a aplicação:
+
+```bash
+npm start
+```
+
+Em outro terminal:
+
+```bash
+npm run test:e2e
+```
+
+## 7. Executar tudo
+
+Com a aplicação já iniciada, execute:
+
+```bash
+npm run test:all
+```
+
+Esse comando roda primeiro os testes unitários e depois os E2E.
