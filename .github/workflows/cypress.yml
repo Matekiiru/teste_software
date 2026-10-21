@@ -27,7 +27,9 @@ jobs:
         run: npm ci
 
       - name: Executar testes unitários
-        run: npm run test:unit
+        uses: cypress-io/github-action@v7
+        with:
+          component: true
 
       - name: Executar testes Cypress
         uses: cypress-io/github-action@v7
